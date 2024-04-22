@@ -10,8 +10,8 @@ import ru.skoraya.springProb.repository.UserRepository;
 import java.util.List;
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserService{
+
     @Autowired
     private final UserRepository userRepository;
 
@@ -31,8 +31,20 @@ public class UserServiceImpl implements UserService{
         return userRepository.readUser(id);
     }
 
+
+    @Transactional
     @Override
-    public void createOrUpdateUser(User user) {
+    public void createUser (User user){
+        if (user.getId()!=null){
+            userRepository.updateUser(user);
+        }else {
+            userRepository.createUser(user);
+        }
+    }
+
+    @Transactional
+    @Override
+    public void UpdateUser(User user) {
         if (user.getId()!=null){
             userRepository.updateUser(user);
         }else {
@@ -41,6 +53,9 @@ public class UserServiceImpl implements UserService{
 
     }
 
+
+
+    @Transactional
     @Override
     public void deleteUser(Long id) {
         try {

@@ -19,7 +19,8 @@ public class UserController {
         this.userServices = userService;
     }
 
-    @GetMapping({"","/","/list"})
+
+   @GetMapping({"","/","/list"})
     public String getUsers(Model model) {
         model.addAttribute("users", userServices.getAllUser());
         return "list";
@@ -34,14 +35,14 @@ public class UserController {
 
     @PostMapping("/save")
     public String saveUser(@ModelAttribute("user") User user){
-        userServices.createOrUpdateUser(user);
+        userServices.createUser(user);
         return "redirect:/list";
     }
 
     @PostMapping("update/{id}")
         public String updateUser(@PathVariable("id") Long id, User user){
         user.setId(id);
-        userServices.createOrUpdateUser(user);
+        userServices.UpdateUser(user);
         return "redirect:/list";
     }
 
